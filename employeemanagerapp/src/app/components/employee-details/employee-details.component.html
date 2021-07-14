@@ -1,0 +1,42 @@
+<div class="container pt-5">
+  <div class="row justify-content-sm-center pt-5">
+      <div class="col-sm-6 shadow round pb-3">
+        <h1 class="text-center pt-3 text-secondary">Edit employee</h1>
+          <form [formGroup]="exform">
+
+              <div class="form-group">
+                <label class="col-form-label">Name:</label>
+                <input [(ngModel)]="currentEmployee.name" formControlName="name" type="text" class="form-control">
+                <small *ngIf="name.invalid && name.touched" class="text-danger">Name is Required</small> 
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Email:</label>
+                <input [(ngModel)]="currentEmployee.email" formControlName="email" type="text" class="form-control" >
+                <small *ngIf="email.invalid && email.touched" class="text-danger">Email is Required</small>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Job Title:</label>
+                <input [(ngModel)]="currentEmployee.jobTitle" formControlName="jobTitle" type="text" class="form-control" >
+                <small *ngIf="jobTitle.invalid && jobTitle.touched" class="text-danger">Job Title is Required</small>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Phone:</label>
+                <input [(ngModel)]="currentEmployee.phone" formControlName="phone" type="text" class="form-control" >
+                <small *ngIf="phone.invalid && phone.touched" class="text-danger">Phone is Required(minimum length 10,numbers are only allowed)</small>
+              </div>
+
+              <div class="form-group">
+                <label class="col-form-label">Image URL:</label>
+                <input [(ngModel)]="currentEmployee.imageUrl" formControlName="imageUrl" type="text" class="form-control" >
+                <small *ngIf="imageUrl.invalid && imageUrl.touched" class="text-danger">ImageURL is Required(minimum length 10,numbers are only allowed)</small>
+              </div>
+
+              <button (click)="clicksub()" [disabled]="exform.invalid" type="button" class="btn btn-primary">Save</button>
+            </form>
+      </div>
+  </div>
+</div>
+

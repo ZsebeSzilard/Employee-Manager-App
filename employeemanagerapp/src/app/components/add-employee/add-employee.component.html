@@ -1,0 +1,46 @@
+<div *ngIf="!submitted">
+
+  <div class="container pt-5">
+    <div class="row justify-content-sm-center pt-5">
+        <div class="col-sm-6 shadow round pb-3">
+          <h1 class="text-center pt-3 text-secondary">Add employee</h1> 
+            <form [formGroup]="exform">
+
+                <div class="form-group">
+                  <label class="col-form-label">Name:</label>
+                  <input [(ngModel)]="newEmployee.name" formControlName="name" type="text" class="form-control">
+                  <small *ngIf="name.invalid && name.touched" class="text-danger">Name is Required</small> 
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">Email:</label>
+                  <input [(ngModel)]="newEmployee.email" formControlName="email" type="text" class="form-control" >
+                  <small *ngIf="email.invalid && email.touched" class="text-danger">Email is Required</small>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">Job Title:</label>
+                  <input [(ngModel)]="newEmployee.jobTitle" formControlName="jobTitle" type="text" class="form-control" >
+                  <small *ngIf="jobTitle.invalid && jobTitle.touched" class="text-danger">Jobt title is required!</small>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">Phone:</label>
+                  <input [(ngModel)]="newEmployee.phone" formControlName="phone" type="text" class="form-control" >
+                  <small *ngIf="phone.invalid && phone.touched" class="text-danger">Phone is required! (Must be 10 to 13 digits)</small>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">Image URL:</label>
+                  <input [(ngModel)]="newEmployee.imageUrl" formControlName="imageUrl" type="text" class="form-control" >
+                  <small *ngIf="imageUrl.invalid && imageUrl.touched" class="text-danger">ImageURL is Required!</small>
+                </div>
+              
+                <button  (click)="saveEmployee()" [disabled]="exform.invalid" type="button" class="btn btn-success">Add Employee</button>
+                <button class="btn btn-primary leftmargin autodeselect"(click)="resetEmployee()">Reset</button>
+                <button class="btn btn-primary leftmargin" style="margin-left: 10px;" (click)="goToHomepage()">Go to homepage</button>
+              </form>
+        </div>
+    </div>
+  </div>
+</div>
