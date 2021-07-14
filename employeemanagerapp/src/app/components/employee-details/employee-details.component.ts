@@ -73,7 +73,7 @@ export class EmployeeDetailsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.router.navigate(['/employees']);
+          this.router.navigate(['/overview']);
         },
         error => {
           console.log(error);
@@ -81,10 +81,9 @@ export class EmployeeDetailsComponent implements OnInit {
   }
   
   goToHomepage():void{
-    this.router.navigate(['/employees']);
+    this.router.navigate(['/overview']);
   }
 
-//form code
   get name() {
     return this.exform.get('name');
   }
