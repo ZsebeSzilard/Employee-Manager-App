@@ -1,42 +1,64 @@
-<div class="container pt-5">
-  <div class="row justify-content-sm-center pt-5">
-      <div class="col-sm-6 shadow round pb-3">
-        <h1 class="text-center pt-3 text-secondary">Edit employee</h1>
-          <form [formGroup]="exform">
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h3>Edit Employee</h3>
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
 
-              <div class="form-group">
-                <label class="col-form-label">Name:</label>
-                <input [(ngModel)]="currentEmployee.name" formControlName="name" type="text" class="form-control">
-                <small *ngIf="name.invalid && name.touched" class="text-danger">Name is Required</small> 
-              </div>
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" formControlName="name" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && formControls.name.errors }" />
+            <div *ngIf="submitted && formControls.name.errors" class="invalid-feedback">
+              <div *ngIf="formControls.name.errors.required">Name is required</div>
+            </div>
+          </div>
 
-              <div class="form-group">
-                <label class="col-form-label">Email:</label>
-                <input [(ngModel)]="currentEmployee.email" formControlName="email" type="text" class="form-control" >
-                <small *ngIf="email.invalid && email.touched" class="text-danger">Email is Required</small>
-              </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="text" formControlName="email" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }" />
+            <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
+              <div *ngIf="formControls.email.errors.required">Email is required</div>
+              <div *ngIf="formControls.email.errors.email">Must be a valid email address!</div>
+            </div>
+          </div>
 
-              <div class="form-group">
-                <label class="col-form-label">Job Title:</label>
-                <input [(ngModel)]="currentEmployee.jobTitle" formControlName="jobTitle" type="text" class="form-control" >
-                <small *ngIf="jobTitle.invalid && jobTitle.touched" class="text-danger">Job Title is Required</small>
-              </div>
+          <div class="form-group">
+            <label>Job title</label>
+            <input type="text" formControlName="jobTitle" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && formControls.jobTitle.errors }" />
+            <div *ngIf="submitted && formControls.jobTitle.errors" class="invalid-feedback">
+              <div *ngIf="formControls.jobTitle.errors.required">Job title is required</div>
+            </div>
+          </div>
 
-              <div class="form-group">
-                <label class="col-form-label">Phone:</label>
-                <input [(ngModel)]="currentEmployee.phone" formControlName="phone" type="text" class="form-control" >
-                <small *ngIf="phone.invalid && phone.touched" class="text-danger">Phone is Required(minimum length 10,numbers are only allowed)</small>
-              </div>
 
-              <div class="form-group">
-                <label class="col-form-label">Image URL:</label>
-                <input [(ngModel)]="currentEmployee.imageUrl" formControlName="imageUrl" type="text" class="form-control" >
-                <small *ngIf="imageUrl.invalid && imageUrl.touched" class="text-danger">ImageURL is Required(minimum length 10,numbers are only allowed)</small>
-              </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" formControlName="phone" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && formControls.phone.errors }" />
+            <div *ngIf="submitted && formControls.phone.errors" class="invalid-feedback">
+              <div *ngIf="formControls.phone.errors.required">Phone is required</div>
+              <div *ngIf="formControls.phone.errors.pattern">Phone must be between 10 and 13 digits.</div>
+            </div>
+          </div>
 
-              <button (click)="clicksub()" [disabled]="exform.invalid" type="button" class="btn btn-primary">Save</button>
-            </form>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="text" formControlName="imageUrl" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && formControls.imageUrl.errors }" />
+            <div *ngIf="submitted && formControls.imageUrl.errors" class="invalid-feedback">
+              <div *ngIf="formControls.imageUrl.errors.required">Image URL is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary">Save Employee</button>
+            <button class="btn btn-primary leftmargin" (click)="goToHomepage()">Go to Homepage</button>
+          </div>
+        </form>
       </div>
+    </div>
   </div>
 </div>
-

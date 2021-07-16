@@ -37,7 +37,7 @@ export class EmployeesListComponent implements OnInit {
         });
   }
 
-  public deleteEmloyee(employeeId: number): void {
+  public deleteEmployee(employeeId: number): void {
     this.employeeService.deleteEmployee(employeeId).subscribe(
       (response: void) => {
         console.log(response);
@@ -56,8 +56,7 @@ export class EmployeesListComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
       
       this.employeeToDelete=employee;
-      this.deleteEmloyee(employee.id);
-      //this.retrieveEmployees();
+      this.deleteEmployee(employee.id);
 
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

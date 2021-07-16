@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from 'src/app/model/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-employee',
@@ -10,69 +10,56 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent implements OnInit {
-  exform: any;
+    addForm: any;
+    submitted = false;
 
-  newEmployee = new Employee();
+    constructor(
+      private formBuilder: FormBuilder,
+      private employeeService: EmployeeService,
+      private router: Router) { }
 
-  submitted = false;
-
-  constructor(private employeeService: EmployeeService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.exform = new FormGroup({
-      'name' : new FormControl(null, Validators.required),
-      'email' : new FormControl(null, [Validators.required, Validators.email]),
-      'jobTitle' : new FormControl(null, Validators.required),
-      'phone' : new FormControl(
-        null,
-        [
-          Validators.required,
-          Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')
-        ]),
-      'imageUrl' : new FormControl(null, Validators.required)
-
-    });
-  }
-
-  saveEmployee(): void {
-    this.employeeService.addEmployee(this.newEmployee)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.goToHomepage();
-        },
-        error => {
-          console.log(error);
+    ngOnInit() {
+        this.addForm = this.formBuilder.group({
+            name: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            jobTitle: ['', Validators.required],
+            phone : ['',
+            [
+                Validators.required,
+                Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$')
+            ]
+          ],
+            imageUrl: ['', Validators.required]
         });
-  }
+    }
+    
+    get formControls() { return this.addForm.controls; }
 
-  resetEmployee(): void {
-    this.submitted = false;
-    this.newEmployee = new Employee();
-    this.exform.reset();
-  }
+    onSubmit() {
+        this.submitted = true;
 
-  goToHomepage():void{
-    this.router.navigate(['/overview']);
-  }
+        if (this.addForm.invalid) {
+            return;
+        }
 
-  get name() {
-    return this.exform.get('name');
-  }
+        this.saveEmployee();
+    }
 
-  get email() {
-    return this.exform.get('email');
-  }
 
-  get jobTitle() {
-    return this.exform.get('jobTitle');
-  }
-
-  get phone() {
-    return this.exform.get('phone');
-  }
-
-  get imageUrl(){
-    return this.exform.get('imageUrl');
-  }
+    saveEmployee(): void {
+      this.employeeService.addEmployee(this.addForm.value)
+        .subscribe(
+          response => {
+            console.log(response);
+            this.goToHomepage();
+          },
+          error => {
+            console.log(error);
+          });
+    }
+  
+    goToHomepage():void{
+      this.router.navigate(['/overview']);
+    }
+  
 }
